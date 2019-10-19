@@ -1,5 +1,6 @@
 'use strict'
 
+
 // Read existing notes from localStorage
 const getSavedNotes = function () {
     const notesJSON = localStorage.getItem('notes');
@@ -16,6 +17,17 @@ const saveNotes = function (notes) {
     localStorage.setItem('notes', JSON.stringify(notes));
 };
 
+// Remove note
+const removeNote = function (id) {
+  const noteIndex = notes.findIndex(note => {
+    return note.id === id;
+  });
+
+  if (noteIndex > -1) {
+    notes.splice(noteIndex, 1);
+  };
+};
+
 // Generate note DOM structure
 const generateNote = function (note) {
         const noteElement = document.createElement('div');
@@ -25,6 +37,11 @@ const generateNote = function (note) {
         // Setup delete BTN
         deleteBtn.textContent = 'x';
         noteElement.appendChild(deleteBtn);
+        deleteBtn.addEventListener('click', e => {
+          removeNote(note.id);
+          saveNotes(notes);
+          renderNotes(notes, filters);
+        });        
 
         // Setup note tittle TEXT
         if (note.title.length > 0) {

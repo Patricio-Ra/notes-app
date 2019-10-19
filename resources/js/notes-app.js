@@ -9,6 +9,7 @@ const filters = {
 
 document.querySelector('#create-note').addEventListener('click', e => {
   notes.push({
+    id: uuidv4(),
     title: '',
     body: ''
   });
