@@ -18,15 +18,23 @@ const saveNotes = function (notes) {
 
 // Generate note DOM structure
 const generateNote = function (note) {
-        const noteElement = document.createElement('p');
-        noteElement.className = 'note';
+        const noteElement = document.createElement('div');
+        const textElement = document.createElement('span');
+        const deleteBtn = document.createElement('button');
 
+        // Setup delete BTN
+        deleteBtn.textContent = 'x';
+        noteElement.appendChild(deleteBtn);
+
+        // Setup note tittle TEXT
         if (note.title.length > 0) {
-          noteElement.textContent = note.title;
+          textElement.textContent = note.title;
         } else {
-          noteElement.textContent = 'Unnamed note';
+          textElement.textContent = 'Unnamed note';
         };
+        noteElement.appendChild(textElement);
 
+        noteElement.className = 'note';
         return noteElement;
 };
 
@@ -36,6 +44,7 @@ const renderNotes = function (notes, filters) {
       return note.title.toLowerCase().includes(filters.searchText.toLowerCase());
     });
   
+    // Clear rendered notes when re-rendering
     document.querySelector('#notes').innerHTML = '';
   
     filteredNotes.forEach(note => {
