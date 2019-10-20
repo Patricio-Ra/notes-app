@@ -30,29 +30,29 @@ const removeNote = function (id) {
 
 // Generate note DOM structure
 const generateNote = function (note) {
-        const noteElement = document.createElement('div');
-        const textElement = document.createElement('span');
-        const deleteBtn = document.createElement('button');
+  const noteElement = document.createElement('div');
+  const textElement = document.createElement('span');
+  const deleteBtn = document.createElement('button');
 
-        // Setup delete BTN
-        deleteBtn.textContent = 'x';
-        noteElement.appendChild(deleteBtn);
-        deleteBtn.addEventListener('click', e => {
-          removeNote(note.id);
-          saveNotes(notes);
-          renderNotes(notes, filters);
-        });        
+  // Setup delete BTN
+  deleteBtn.textContent = 'x';
+  noteElement.appendChild(deleteBtn);
+  deleteBtn.addEventListener('click', e => {
+    removeNote(note.id);
+    saveNotes(notes);
+    renderNotes(notes, filters);
+  });        
 
-        // Setup note tittle TEXT
-        if (note.title.length > 0) {
-          textElement.textContent = note.title;
-        } else {
-          textElement.textContent = 'Unnamed note';
-        };
-        noteElement.appendChild(textElement);
+  // Setup note tittle TEXT
+  if (note.title.length > 0) {
+    textElement.textContent = note.title;
+  } else {
+    textElement.textContent = 'Unnamed note';
+  };
+  noteElement.appendChild(textElement);
 
-        noteElement.className = 'note';
-        return noteElement;
+  noteElement.className = 'note';
+  return noteElement;
 };
 
 // Render notes.
