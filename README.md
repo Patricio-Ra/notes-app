@@ -1,2 +1,2 @@
 # notes-app
-Learning vanilla JS.
+Learning JS (Vanilla).
