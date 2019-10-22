@@ -8,13 +8,14 @@ const filters = {
 };
 
 document.querySelector('#create-note').addEventListener('click', e => {
+  const newId = uuidv4();
   notes.push({
-    id: uuidv4(),
+    id: newId,
     title: '',
     body: ''
   });
   saveNotes(notes);
-  renderNotes(notes, filters);
+  location.assign(`/edit.html#${newId}`);
 });
 
 document.querySelector('#search-text').addEventListener('input', e => { filters.searchText = e.target.value;

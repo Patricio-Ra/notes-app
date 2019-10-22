@@ -12,10 +12,12 @@ const getSavedNotes = function () {
     };
 };
 
+
 // Save notes to localStorage
 const saveNotes = function (notes) {
     localStorage.setItem('notes', JSON.stringify(notes));
 };
+
 
 // Remove note
 const removeNote = function (id) {
@@ -28,10 +30,11 @@ const removeNote = function (id) {
   };
 };
 
+
 // Generate note DOM structure
 const generateNote = function (note) {
   const noteElement = document.createElement('div');
-  const textElement = document.createElement('span');
+  const textElement = document.createElement('a');
   const deleteBtn = document.createElement('button');
 
   // Setup delete BTN
@@ -49,11 +52,13 @@ const generateNote = function (note) {
   } else {
     textElement.textContent = 'Unnamed note';
   };
+  textElement.setAttribute('href', `/edit.html#${note.id}`);
   noteElement.appendChild(textElement);
 
   noteElement.className = 'note';
   return noteElement;
 };
+
 
 // Render notes.
 const renderNotes = function (notes, filters) {
