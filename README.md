@@ -1,2 +1,2 @@
 # notes-app
-Practice Notes app: JS.
+Learning JS (Vanilla).
