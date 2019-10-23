@@ -3,9 +3,9 @@
 const titleElement = document.getElementById('note-title');
 const bodyElement = document.getElementById('note-body');
 const removeElement = document.getElementById('remove-note');
-const notes = getSavedNotes();
 const noteId = location.hash.substring(1);
-const note = notes.find(note => {
+let notes = getSavedNotes();
+let note = notes.find(note => {
   return note.id === noteId;
 });
 
@@ -30,4 +30,21 @@ removeElement.addEventListener('click', e => {
   removeNote(note.id);
   saveNotes(notes);
   location.assign('/index.html');
+});
+
+window.addEventListener('storage', e => {
+  if (e.key === 'notes') {
+    notes = JSON.parse(e.newValue);
+    // Duplicate code: to be fixed.
+    note = notes.find(note => {
+      return note.id === noteId;
+    });
+    
+    if (note === undefined) {
+      location.assign('/index.html');
+    } else {
+      titleElement.value = note.title;
+      bodyElement.value = note.body;
+    };
+  };
 });

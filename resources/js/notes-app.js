@@ -1,7 +1,6 @@
 'use strict'
 
-
-const notes = getSavedNotes();
+let notes = getSavedNotes();
 
 const filters = {
   searchText: ''
@@ -26,5 +25,11 @@ document.querySelector('#filter-by').addEventListener('change', e => {
   console.log(e.target.value, '.. Will make this feature later on.');
 });
 
-renderNotes(notes, filters);
+window.addEventListener('storage', e => {
+  if (e.key === 'notes') {
+    notes = JSON.parse(e.newValue);  // Same as getSavedNotes(notes)
+    renderNotes(notes, filters);
+  };
+});
 
+renderNotes(notes, filters);
