@@ -3,6 +3,8 @@
 const titleElement = document.getElementById('note-title');
 const bodyElement = document.getElementById('note-body');
 const removeElement = document.getElementById('remove-note');
+const timeElement = document.getElementById('last-edited');
+
 const noteId = location.hash.substring(1);
 let notes = getSavedNotes();
 let note = notes.find(note => {
@@ -14,15 +16,20 @@ if (note === undefined) {
 } else {
   titleElement.value = note.title;
   bodyElement.value = note.body;
+  timeElement.textContent = generateLastUpdated(note.updatedAt);;
 };
 
 titleElement.addEventListener('input', e => {
   note.title = e.target.value;
+  note.updatedAt = moment().valueOf();
+  timeElement.textContent = generateLastUpdated(note.updatedAt);
   saveNotes(notes);
 });
 
 bodyElement.addEventListener('input', e => {
   note.body = e.target.value;
+  note.updatedAt = moment().valueOf();
+  timeElement.textContent = generateLastUpdated(note.updatedAt);
   saveNotes(notes);
 });
 
@@ -45,6 +52,7 @@ window.addEventListener('storage', e => {
     } else {
       titleElement.value = note.title;
       bodyElement.value = note.body;
+      timeElement.textContent = generategenerateLastUpdated(note.updatedAt);
     };
   };
 });
