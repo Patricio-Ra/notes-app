@@ -33,3 +33,8 @@ window.addEventListener('storage', e => {
 });
 
 renderNotes(notes, filters);
+
+// const time = moment('1988, 8, 20');
+const time = moment();
+time.year(1988).month(7).date(20);
+console.log(time.format('MMM D, YYYY'));
