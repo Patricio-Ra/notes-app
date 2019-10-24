@@ -66,17 +66,42 @@ const generateLastUpdated = function (timestamp) {
 };
 
 
+// Sort notes by the select element.
+const sortNotes = function (notes, sortBy) {
+  return notes.sort((a, b) => {
+    switch (sortBy) {
+      case 'byEdited':
+        return b.updatedAt - a.updatedAt;
+      case 'byCreated':
+        return b.createdAt - a.createdAt;
+      case 'byAlphabetical':
+        if (a.title.toLowerCase() < b.title.toLowerCase()) {
+          return -1;
+        } else if (a.title.toLowerCase() > b.title.toLowerCase()) {
+          return 1;
+        } else {
+          return 0;
+        };
+      default:
+        return notes;
+    };
+  });
+};
+
+
 // Render notes.
 const renderNotes = function (notes, filters) {
-    const filteredNotes = notes.filter(note => {
-      return note.title.toLowerCase().includes(filters.searchText.toLowerCase());
-    });
-  
-    // Clear rendered notes when re-rendering
-    document.querySelector('#notes').innerHTML = '';
-  
-    filteredNotes.forEach(note => {
-      const noteElement = generateNote(note);
-      document.querySelector('#notes').appendChild(noteElement);
-    });
-  };
+  notes = sortNotes(notes, filters.sortBy);
+
+  const filteredNotes = notes.filter(note => {
+    return note.title.toLowerCase().includes(filters.searchText.toLowerCase());
+  });
+
+  // Clear rendered notes when re-rendering
+  document.querySelector('#notes').innerHTML = '';
+
+  filteredNotes.forEach(note => {
+    const noteElement = generateNote(note);
+    document.querySelector('#notes').appendChild(noteElement);
+  });
+};
