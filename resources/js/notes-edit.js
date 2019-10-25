@@ -9,7 +9,7 @@ const noteId = location.hash.substring(1);
 let notes = getSavedNotes();
 let note = notes.find(note => note.id === noteId);
 
-if (note === undefined) {
+if (!note) {
   location.assign('/index.html');
 } else {
   titleElement.value = note.title;
@@ -43,7 +43,7 @@ window.addEventListener('storage', e => {
     // Duplicate code: to be fixed.
     note = notes.find(note => note.id === noteId);
     
-    if (note === undefined) {
+    if (!note) {
       location.assign('/index.html');
     } else {
       titleElement.value = note.title;
